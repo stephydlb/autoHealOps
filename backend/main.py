@@ -2,8 +2,8 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
 import psutil
-from backend.database import init_db, SessionLocal
-from backend.models import Metric, Process as ProcessModel
+from database import init_db, SessionLocal
+from models import Metric, Process as ProcessModel
 
 app = FastAPI(title="AutoHealOps Backend API")
 
