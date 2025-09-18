@@ -1,56 +1,29 @@
-# AutoHealOps Development Plan
+# AutoHealOps Task Completion Steps
 
-## 1. Project Structure Setup
-- [x] Create frontend/ directory for Next.js app
-- [x] Create backend/ directory for FastAPI app
-- [x] Create docker/ directory for deployment files
-- [x] Create ai/ directory for ML models
-- [x] Update README.md with project details
+## Step 1: Frontend Basics
+- [x] Update frontend/src/app/layout.tsx for basic layout with header and navigation
+- [x] Create routing: Add pages for /dashboard, /processes, /scripts
+- [x] Replace page.tsx with dashboard component that fetches and displays metrics
 
-## 2. Frontend Initialization (Next.js + TypeScript)
-- [x] Initialize Next.js project in frontend/
-- [x] Set up TypeScript configuration
-- [ ] Create basic layout and routing
-- [ ] Implement dashboard component for metrics display
-
-## 3. Backend Initialization (FastAPI + Python)
-- [x] Initialize FastAPI project in backend/
-- [x] Set up virtual environment
-- [x] Create basic API endpoints for system metrics
-- [x] Implement data collection from Linux system
-
-## 4. Database Setup (PostgreSQL)
-- [x] Set up PostgreSQL database
-- [x] Create models for metrics, users, scripts
-- [x] Implement database connections in backend
-
-## 5. AI Module Implementation
-- [ ] Set up Scikit-learn for predictive models
-- [ ] Implement anomaly detection
-- [ ] Create prediction endpoints for CPU, RAM, Disk
-
-## 6. Process Management Features
-- [ ] Add endpoints for listing processes
-- [ ] Implement kill/restart process actions
-- [ ] Add zombie process cleanup automation
-
-## 7. Script Management with AI
-- [ ] Create script storage and execution module
+## Step 2: Backend Enhancements
+- [x] Add endpoints in backend/main.py for process kill/restart and zombie cleanup
+- [x] Add script storage and execution endpoints
 - [ ] Implement AI-assisted script generation
-- [ ] Add execution history and audit logs
 
-## 8. Authentication and Security
-- [ ] Implement user authentication (login/password)
-- [ ] Add role-based permissions (admin/viewer)
-- [ ] Set up HTTPS and secure communications
+## Step 3: AI Module
+- [x] Create ai/ directory with anomaly detection using scikit-learn
+- [x] Add prediction endpoints for CPU, RAM, Disk
 
-## 9. Docker and Deployment
-- [ ] Create Dockerfile for frontend
-- [ ] Create Dockerfile for backend
-- [ ] Set up docker-compose for full stack
-- [ ] Add Kubernetes manifests if needed
+## Step 4: Authentication
+- [x] Implement user authentication in backend (login/password)
+- [x] Add role-based permissions (admin/viewer)
 
-## 10. Testing and Finalization
+## Step 5: Docker Setup
+- [x] Create Dockerfile for frontend
+- [x] Create Dockerfile for backend
+- [x] Set up docker-compose.yml for full stack
+
+## Step 6: Testing and Documentation
 - [ ] Test all features end-to-end
 - [ ] Optimize performance
-- [ ] Add documentation
+- [ ] Update README.md with documentation
