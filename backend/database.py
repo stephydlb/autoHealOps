@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from backend.models import Base
+from models import Base
 
 DATABASE_URL = "postgresql://autohealops_user:password@localhost/autohealops"
 
