@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "AutoHealOps",
-  description: "System monitoring and healing dashboard",
+  description: "Tableau de bord de surveillance et de réparation système",
 };
 
 export default function RootLayout({
@@ -31,9 +31,11 @@ export default function RootLayout({
           <nav className="container mx-auto flex justify-between items-center">
             <h1 className="text-xl font-bold">AutoHealOps</h1>
             <ul className="flex space-x-4">
-              <li><a href="/" className="hover:underline">Dashboard</a></li>
-              <li><a href="/processes" className="hover:underline">Processes</a></li>
+              <li><a href="/" className="hover:underline">Tableau de bord</a></li>
+              <li><a href="/processes" className="hover:underline">Processus</a></li>
               <li><a href="/scripts" className="hover:underline">Scripts</a></li>
+              <li><a href="/ai" className="hover:underline">IA/ML</a></li>
+              <li><a href="/about" className="hover:underline">À propos</a></li>
             </ul>
           </nav>
         </header>

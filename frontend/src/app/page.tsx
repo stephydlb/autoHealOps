@@ -10,9 +10,16 @@ interface Metrics {
   percent: number;
 }
 
+interface AnomalyData {
+  cpu_percent: number;
+  is_anomaly: boolean;
+}
+
 export default function Dashboard() {
   const [cpu, setCpu] = useState<number | null>(null);
   const [memory, setMemory] = useState<Metrics | null>(null);
+  const [cpuAnomaly, setCpuAnomaly] = useState<boolean | null>(null);
+  const [memoryAnomaly, setMemoryAnomaly] = useState<boolean | null>(null);
 
   useEffect(() => {
     const fetchMetrics = async () => {
@@ -24,6 +31,15 @@ export default function Dashboard() {
         const memRes = await fetch('http://localhost:8000/metrics/memory');
         const memData = await memRes.json();
         setMemory(memData);
+
+        // Fetch anomaly data
+        const cpuAnomalyRes = await fetch('http://localhost:8000/predict/cpu');
+        const cpuAnomalyData: AnomalyData = await cpuAnomalyRes.json();
+        setCpuAnomaly(cpuAnomalyData.is_anomaly);
+
+        const memoryAnomalyRes = await fetch('http://localhost:8000/predict/memory');
+        const memoryAnomalyData: AnomalyData = await memoryAnomalyRes.json();
+        setMemoryAnomaly(memoryAnomalyData.is_anomaly);
       } catch (error) {
         console.error('Error fetching metrics:', error);
       }
@@ -78,6 +94,11 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
+            {cpuAnomaly !== null && (
+              <div className={`mt-4 text-sm font-semibold ${cpuAnomaly ? 'text-red-600' : 'text-green-600'}`}>
+                AI/ML Status: {cpuAnomaly ? 'Anomaly Detected' : 'Normal'}
+              </div>
+            )}
           </div>
           <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
             <h3 className="text-xl font-semibold text-gray-700 mb-4">Memory Usage</h3>
@@ -106,12 +127,17 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            {memory && (
-              <div className="mt-4 text-sm text-gray-600">
-                Used: {(memory.used / 1024 / 1024 / 1024).toFixed(2)} GB / {(memory.total / 1024 / 1024 / 1024).toFixed(2)} GB
+            {memoryAnomaly !== null && (
+              <div className={`mt-4 text-sm font-semibold ${memoryAnomaly ? 'text-red-600' : 'text-green-600'}`}>
+                AI/ML Status: {memoryAnomaly ? 'Anomaly Detected' : 'Normal'}
               </div>
             )}
           </div>
+          {memory && (
+            <div className="mt-4 text-sm text-gray-600">
+              Used: {(memory.used / 1024 / 1024 / 1024).toFixed(2)} GB / {(memory.total / 1024 / 1024 / 1024).toFixed(2)} GB
+            </div>
+          )}
         </div>
       </div>
     </div>
