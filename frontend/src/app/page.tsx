@@ -34,21 +34,84 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, []);
 
+  const getCpuColor = (percent: number) => {
+    if (percent < 50) return 'text-green-600';
+    if (percent < 80) return 'text-yellow-600';
+    return 'text-red-600';
+  };
+
+  const getMemoryColor = (percent: number) => {
+    if (percent < 50) return 'text-green-600';
+    if (percent < 80) return 'text-yellow-600';
+    return 'text-red-600';
+  };
+
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">System Metrics Dashboard</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-white p-4 rounded shadow">
-          <h3 className="text-lg font-semibold">CPU Usage</h3>
-          <p className="text-3xl">{cpu !== null ? `${cpu.toFixed(2)}%` : 'Loading...'}</p>
-        </div>
-        <div className="bg-white p-4 rounded shadow">
-          <h3 className="text-lg font-semibold">Memory Usage</h3>
-          {memory ? (
-            <p className="text-3xl">{memory.percent.toFixed(2)}%</p>
-          ) : (
-            <p>Loading...</p>
-          )}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-3xl font-bold text-gray-800 mb-8">System Metrics Dashboard</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+            <h3 className="text-xl font-semibold text-gray-700 mb-4">CPU Usage</h3>
+            <div className="flex items-center">
+              <div className="text-4xl font-bold mr-4">
+                {cpu !== null ? (
+                  <span className={getCpuColor(cpu)}>{cpu.toFixed(2)}%</span>
+                ) : (
+                  <span className="text-gray-500">Loading...</span>
+                )}
+              </div>
+              <div className="flex-1">
+                <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div
+                    className={`h-3 rounded-full transition-all duration-500 ${
+                      cpu !== null
+                        ? cpu < 50
+                          ? 'bg-green-500'
+                          : cpu < 80
+                          ? 'bg-yellow-500'
+                          : 'bg-red-500'
+                        : 'bg-gray-300'
+                    }`}
+                    style={{ width: cpu !== null ? `${Math.min(cpu, 100)}%` : '0%' }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+            <h3 className="text-xl font-semibold text-gray-700 mb-4">Memory Usage</h3>
+            <div className="flex items-center">
+              <div className="text-4xl font-bold mr-4">
+                {memory ? (
+                  <span className={getMemoryColor(memory.percent)}>{memory.percent.toFixed(2)}%</span>
+                ) : (
+                  <span className="text-gray-500">Loading...</span>
+                )}
+              </div>
+              <div className="flex-1">
+                <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div
+                    className={`h-3 rounded-full transition-all duration-500 ${
+                      memory
+                        ? memory.percent < 50
+                          ? 'bg-green-500'
+                          : memory.percent < 80
+                          ? 'bg-yellow-500'
+                          : 'bg-red-500'
+                        : 'bg-gray-300'
+                    }`}
+                    style={{ width: memory ? `${Math.min(memory.percent, 100)}%` : '0%' }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+            {memory && (
+              <div className="mt-4 text-sm text-gray-600">
+                Used: {(memory.used / 1024 / 1024 / 1024).toFixed(2)} GB / {(memory.total / 1024 / 1024 / 1024).toFixed(2)} GB
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

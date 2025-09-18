@@ -1,7 +1,8 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 import psutil
 import os
 import signal
@@ -13,6 +14,15 @@ from models import Metric, Process as ProcessModel, Script, User
 from ai.anomaly_detection import detect_anomaly
 
 app = FastAPI(title="AutoHealOps Backend API")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # In production, specify your frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Initialize database
 init_db()
@@ -31,7 +41,7 @@ def verify_password(plain_password, hashed_password):
 def get_password_hash(password):
     return pwd_context.hash(password)
 
-def create_access_token(data: dict, expires_delta: timedelta | None = None):
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -113,8 +123,8 @@ class ScriptResponse(BaseModel):
     name: str
     content: str
     created_at: str
-    executed_at: str | None
-    result: str | None
+    executed_at: Optional[str]
+    result: Optional[str]
 
 @app.get("/health")
 def health():
