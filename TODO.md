@@ -14,15 +14,15 @@
 - [ ] Implement dashboard component for metrics display
 
 ## 3. Backend Initialization (FastAPI + Python)
-- [ ] Initialize FastAPI project in backend/
-- [ ] Set up virtual environment
-- [ ] Create basic API endpoints for system metrics
-- [ ] Implement data collection from Linux system
+- [x] Initialize FastAPI project in backend/
+- [x] Set up virtual environment
+- [x] Create basic API endpoints for system metrics
+- [x] Implement data collection from Linux system
 
 ## 4. Database Setup (PostgreSQL)
-- [ ] Set up PostgreSQL database
-- [ ] Create models for metrics, users, scripts
-- [ ] Implement database connections in backend
+- [x] Set up PostgreSQL database
+- [x] Create models for metrics, users, scripts
+- [x] Implement database connections in backend
 
 ## 5. AI Module Implementation
 - [ ] Set up Scikit-learn for predictive models
