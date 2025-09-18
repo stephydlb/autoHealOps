@@ -32,3 +32,28 @@
 - `backend/` : API FastAPI
 - `ai/` : Modèles d'IA
 - `docker/` : Fichiers de déploiement
+
+## API Documentation
+
+### Authentication
+- `POST /register` : Register a new user
+- `POST /login` : Login and get JWT token
+
+### Metrics
+- `GET /metrics/cpu` : Get current CPU usage
+- `GET /metrics/memory` : Get current memory usage
+
+### Processes
+- `GET /processes` : List all processes
+- `POST /processes/{pid}/kill` : Kill a process (admin required)
+- `POST /processes/{pid}/restart` : Restart a process (not implemented)
+- `POST /processes/cleanup-zombies` : Cleanup zombie processes
+
+### Scripts
+- `POST /scripts` : Create a new script
+- `GET /scripts` : List all scripts
+- `POST /scripts/{script_id}/execute` : Execute a script
+
+### Predictions
+- `GET /predict/cpu` : Predict CPU anomaly
+- `GET /predict/memory` : Predict memory anomaly
